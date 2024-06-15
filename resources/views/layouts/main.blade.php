@@ -16,12 +16,7 @@
         <script src="https://cdn.tailwindcss.com"></script>
     </head>
     <body class="font-sans antialiased dark:bg-black dark:text-white/50">
-        <div class="bg-gray-50 text-black/50 dark:bg-black dark:text-white/50">
-            <img
-                id="background"
-                class="absolute -left-20 top-0 max-w-[877px]"
-                src="https://laravel.com/assets/img/welcome/background.svg"
-            />
+        <div class="bg-grey-100 text-black/50 dark:bg-black dark:text-white/50">
             <div
                 class="relative min-h-screen flex flex-col items-center selection:bg-[#FF2D20] selection:text-white"
             >
@@ -32,7 +27,7 @@
                         >
                             <a
                                 href="{{ route('home') }}"
-                                class="text-gray-800 font-bold"
+                                class="text-gray-800 text-2xl font-bold"
                             >
                                 {{ config("app.name") }}
                             </a>
@@ -41,6 +36,7 @@
                                 <ul class="flex justify-between">
                                     <li class="mx-2">
                                         <a
+                                            class="text-blue-500 bg-green-200 hover:text-blue-700 shadow shadow-sm rounded-md px-4 py-2 font-bold"
                                             href="{{ route('home') }}"
                                             class="text-gray-800 hover:text-gray-600"
                                             >Home</a
@@ -48,6 +44,7 @@
                                     </li>
                                     <li class="mx-2">
                                         <a
+                                            class="text-blue-500 bg-cyan-200 hover:text-blue-700 shadow shadow-sm rounded-md px-4 py-2 font-bold"
                                             href="{{ route('products') }}"
                                             class="text-gray-800 hover:text-gray-600"
                                             >Product</a
@@ -55,6 +52,7 @@
                                     </li>
                                     <li class="mx-2">
                                         <a
+                                            class="text-blue-500 bg-red-200 hover:text-blue-700 shadow shadow-sm rounded-md px-4 py-2 font-bold"
                                             href="{{ route('suppliers') }}"
                                             class="text-gray-800 hover:text-gray-600"
                                             >Supplier</a
@@ -62,6 +60,7 @@
                                     </li>
                                     <li class="mx-2">
                                         <a
+                                            class="text-blue-500 bg-orange-200 hover:text-blue-700 shadow shadow-sm rounded-md px-4 py-2 font-bold"
                                             href="{{ route('orders') }}"
                                             class="text-gray-800 hover:text-gray-600"
                                             >Order</a
@@ -69,6 +68,7 @@
                                     </li>
                                     <li class="mx-2">
                                         <a
+                                            class="text-blue-500 bg-stone-200 hover:text-blue-700 shadow shadow-sm rounded-md px-4 py-2 font-bold"
                                             href="{{ route('users') }}"
                                             class="text-gray-800 hover:text-gray-600"
                                             >User</a
