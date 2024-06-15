@@ -11,6 +11,11 @@ class ProductController extends Controller
 
     public function __construct(ProductRepository $product)
     {
+        $this->product = $product;
+    }
+
+    public function index()
+    {
         $model = $this->product->list();
 
         return $this->view('products/list', compact('model'));
