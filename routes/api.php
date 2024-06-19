@@ -23,26 +23,40 @@ Route::group(
         $router->post('/logout', [AuthController::class, 'logout']);
 
         // categories
-        $router->get('/categories', [CategoryController::class, 'list']);
-        $router->post('/categories', [CategoryController::class, 'create']);
+        Route::group(['prefix' => 'categories'], function ($router) {
+            $router->get('/list', [CategoryController::class, 'list']);
+            $router->post('/create', [CategoryController::class, 'create']);
+            $router->put('/update/{id}', [CategoryController::class, 'update']);
+        });
 
         // product
-        $router->get('/products', [ProductController::class, 'list']);
-        $router->post('/products', [ProductController::class, 'create']);
+        Route::group(['prefix' => 'products'], function ($router) {
+            $router->get('/list', [ProductController::class, 'list']);
+            $router->post('/create', [ProductController::class, 'create']);
+            $router->put('/update/{id}', [ProductController::class, 'update']);
+            $router->post('/upload', [ProductController::class, 'upload']);
+        });
 
         // supplier
-        $router->get('/suppliers', [SupplierController::class, 'list']);
-        $router->post('/suppliers', [SupplierController::class, 'create']);
-        $router->put('/suppliers/{id}', [SupplierController::class, 'update']);
+        Route::group(['prefix' => 'suppliers'], function ($router) {
+            $router->get('/list', [SupplierController::class, 'list']);
+            $router->post('/create', [SupplierController::class, 'create']);
+            $router->put('/update/{id}', [SupplierController::class, 'update']);
+            $router->post('/upload', [SupplierController::class, 'upload']);
+        });
 
         // order
-        $router->get('/orders', [OrderController::class, 'list']);
-        $router->post('/orders', [OrderController::class, 'create']);
-        $router->put('/orders/{id}', [OrderController::class, 'update']);
-        $router->delete('/orders/{id}', [OrderController::class, 'delete']);
+        Route::group(['prefix' => 'orders'], function ($router) {
+            $router->get('/list', [OrderController::class, 'list']);
+            $router->post('/create', [OrderController::class, 'create']);
+            $router->put('/update/{id}', [OrderController::class, 'update']);
+            $router->delete('/delete/{id}', [OrderController::class, 'delete']);
+        });
 
         // user
-        $router->get('/users', [UserController::class, 'list']);
-        $router->put('/users/{id}', [UserController::class, 'update']);
+        Route::group(['prefix' => 'users'], function ($router) {
+            $router->get('/list', [UserController::class, 'list']);
+            $router->put('/update/{id}', [UserController::class, 'update']);
+        });
     }
 );

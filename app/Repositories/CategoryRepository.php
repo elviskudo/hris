@@ -10,6 +10,16 @@ class CategoryRepository
   {
     return Category::all();
   }
+  
+  public function findId ($name)
+  {
+    try {
+      return Category::when('name', '=', $name)
+        ->first(0);
+    } catch (Exception $e) {
+      return null;
+    }
+  }
 
   public function create (array $data)
   {

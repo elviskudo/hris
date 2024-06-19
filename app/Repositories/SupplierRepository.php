@@ -16,6 +16,16 @@ class SupplierRepository
     return Supplier::find($id);
   }
 
+  public function findId ($name)
+  {
+    try {
+      return Supplier::when('name', '=', $name)
+        ->first(0);
+    } catch (Exception $e) {
+      return null;
+    }
+  }
+
   public function create (array $data)
   {
     return Supplier::create($data);

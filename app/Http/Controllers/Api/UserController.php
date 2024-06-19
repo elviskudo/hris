@@ -30,20 +30,30 @@ class UserController extends \App\Http\Controllers\Controller
 
   public function update ($id, Request $request): JsonResponse
   {
-    $validator = Validator::make($request->all(), [
-      'name' => 'required|string|max:255',
-    ]);
+    try {
+      $validator = Validator::make($request->all(), [
+        'name' => 'required|string|max:255',
+      ]);
 
-    if ($validator->fails()) {
-      return response()->json($validator->errors(), 422);
+      if ($validator->fails()) {
+        return response()->json($validator->errors(), 422);
+      }
+
+      $model = $this->users->update($id, $request->all());
+
+      return response()->json([
+        'status' => 200,
+        'message' => 'User updated successfully',
+        'data' => $model
+      ], 200);
+    } catch (\Exception $e) {
+      $statusCode = ($e->getCode() > 100 && $e->getCode() < 600) ? $e->getCode() : 500;
+
+      return response()->json([
+          'status' => $statusCode,
+          'message' => $e->getMessage(),
+          'data' => null
+      ], $statusCode);
     }
-
-    $model = $this->users->update($id, $request->all());
-
-    return response()->json([
-      'status' => 200,
-      'message' => 'User updated successfully',
-      'data' => $model
-    ], 200);
   }
 }

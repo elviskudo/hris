@@ -6,9 +6,26 @@ use App\Models\Product;
 
 class ProductRepository
 {
-    public function list()
+    public function list($perPage = null, $search = null, $orderBy = null)
     {
-        return Product::with(['supplier', 'category'])->get();
+        return Product::with(['supplier', 'category'])
+            ->when($search, function ($query) use ($search) {
+                $query->where('name', 'like', '%' . $search . '%');
+            })
+            ->when(isset($orderBy), function ($query) use ($orderBy) {
+                $query->orderBy('name', $orderBy);
+            })
+            ->paginate($perPage);
+    }
+
+    public function findId ($name)
+    {
+        try {
+            return Product::when('name', '=', $name)
+                ->first(0);
+        } catch (Exception $e) {
+            return null;
+        }
     }
 
     public function detail($id)

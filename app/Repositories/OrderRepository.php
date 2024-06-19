@@ -6,9 +6,12 @@ use App\Models\Transaction;
 
 class OrderRepository
 {
-  public function list ()
+  public function list ($perPage = null, $search = null, $orderBy = null)
   {
-    return Transaction::all();
+    return Transaction::when($search, function ($query) use ($search) {
+      $query->where('name', 'like', '%' . $search . '%');
+    })
+      ->paginate($perPage);
   }
 
   public function detail ($id)
