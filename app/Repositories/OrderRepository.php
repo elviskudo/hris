@@ -2,6 +2,9 @@
 
 namespace App\Repositories;
 
+use Illuminate\Support\Facades\DB;
+
+use App\Models\Product;
 use App\Models\Transaction;
 
 class OrderRepository
@@ -21,15 +24,47 @@ class OrderRepository
 
   public function create (array $data)
   {
-    return Transaction::create($data);
+    try {
+      // begin database transaction
+      DB::beginTransaction();
+      
+      // update stock in products
+      $model = Product::find($data['product_id']);
+
+      if ($model->stock > 0) {
+        $stockLeft = 0;
+        if ($model->stock - $data['quantity'] > 0) {
+          $stockLeft = $model->stock - $data['quantity'];
+
+          $model->update(['stock' => $stockLeft]);
+        } else {
+          throw new \Exception('Stock is not enough');
+        }
+      }
+
+      $createData = Transaction::create($data);
+      // if data is great, then submit the data
+      DB::commit();
+
+      return $createData;
+    } catch (\Exception $e) {
+      DB::rollBack();
+
+      return [];
+    }
   }
 
   public function update ($id, array $data)
   {
-    $model = Transaction::find($id)
-    ->update($data);
+    $model = Transaction::find($id);
+    $model->update($data);
 
     return $model->first();
+  }
+
+  public function summary ($start, $end)
+  {
+    return Transaction::whereBetween('transaction_date', [$start, $end])->get();
   }
 
   public function delete ($id)

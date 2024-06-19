@@ -51,6 +51,8 @@ Route::group(
             $router->post('/create', [OrderController::class, 'create']);
             $router->put('/update/{id}', [OrderController::class, 'update']);
             $router->delete('/delete/{id}', [OrderController::class, 'delete']);
+            $router->post('/summary', [OrderController::class, 'summary']);
+            $router->post('/export', [OrderController::class, 'export']);
         });
 
         // user
