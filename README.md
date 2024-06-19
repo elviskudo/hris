@@ -21,16 +21,6 @@
 3. Run the command `php artisan migrate` to migrate the database schema.
 4. Run the command `php artisan db:seed` to seed the database with some dummy data
 
-## Vuejs
-
-1. Make sure you have nodejs version 20.2.0
-2. Run the command `npm install` to install the frontend dependencies
-3. Run the command `npm install vue@latest vue-loader@latest` to install latest vuejs
-4. Run the command `npm install --save-dev @vitejs/plugin-vue` to install the vite plugin-vue
-5. Run the command `npm install -D tailwindcss` to install the tailwindcss
-6. Run the command `npx tailwindcss init` to create tailwindcss initial
-7. Run the command `npm run dev` to start the Vue development server
-
 ## Open the application
 
 1. Open your web browser then go to 0.0.0.0:8080
