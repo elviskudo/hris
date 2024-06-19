@@ -16,8 +16,23 @@ class UserRepository
     return User::find($id);
   }
 
-  public function insert ($data)
+  public function create (array $data)
   {
-    
+    return User::create($data);
+  }
+  
+  public function update ($id, array $data)
+  {
+    $model = User::where('id', $id);
+    $model->update($data);
+
+    return $model->first();
+  }
+
+  public function delete($id)
+  {
+    $model = User::find($id);
+
+    return $model->delete();
   }
 }

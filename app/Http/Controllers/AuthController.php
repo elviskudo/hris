@@ -6,8 +6,8 @@ use App\Repositories\UserRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-use Tymon\JWTAuth\Facades\JWTAuth;
-use Tymon\JWTAuth\Exceptions\JWTException;
+use PHPOpenSourceSaver\JWTAuth\Facades\JWTAuth;
+use PHPOpenSourceSaver\JWTAuth\Exceptions\JWTException;
 use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
@@ -55,13 +55,21 @@ class AuthController extends Controller
         ]);
 
         if ($validator->fails()) {
-            return response()->json($validator->errors(), 422);
+            return response()->json([
+                'status' => 422,
+                'message' => 'Invalid credentials',
+                'data' => null
+            ], 422);
         }
 
         $credentials = request(['email', 'password']);
 
         if (!$token = auth()->attempt($credentials)) {
-            return response()->json(['error' => 'Unauthorized'], 401);
+            return response()->json([
+                'status' => 401,
+                'message' => 'Unauthorized',
+                'data' => null
+            ], 401);
         }
 
         return $this->respondWithToken([
@@ -71,12 +79,22 @@ class AuthController extends Controller
         ]);
     }
 
-    public function profile(Request $request)
+    public function me(Request $request): JsonResponse
     {
-        $user = Auth::user();
+        $user = auth()->user();
+
+        if (!$user) {
+            return response()->json([
+                'status' => 401,
+                'message' => 'Unauthorized',
+                'data' => null
+            ], 401);
+        }
 
         return response()->json([
-            'user' => $user
-        ]);
+            'status' => 200,
+            'message' => 'My Profile',
+            'data' => $user
+        ], 200);
     }
 }

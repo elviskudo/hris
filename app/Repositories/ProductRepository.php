@@ -8,12 +8,12 @@ class ProductRepository
 {
     public function list()
     {
-        return Product::all();
+        return Product::with(['supplier', 'category'])->get();
     }
 
     public function detail($id)
     {
-        return Product::find($id);
+        return Product::with(['supplier', 'category'])->find($id);
     }
 
     public function create(array $data)
@@ -21,15 +21,18 @@ class ProductRepository
         return Product::create($data);
     }
 
-    public function update($id, array $data)
+    public function update ($id, array $data)
     {
-        $product = $this->find($id);
-        return $product->update($data);
+        $model = Product::where('id', $id);
+        $model->update($data);
+
+        return $model->first();
     }
 
     public function delete($id)
     {
-        $product = $this->find($id);
-        return $product->delete();
+        $model = Product::find($id);
+
+        return $model->delete();
     }
 }

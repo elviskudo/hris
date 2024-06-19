@@ -14,7 +14,7 @@ class DashboardController extends Controller
         $this->dashboard = $dashboard;
     }
 
-    public function index()
+    public function index ()
     {
         $data = [
             'orderCount' => $this->dashboard->orderCount(),
@@ -25,5 +25,10 @@ class DashboardController extends Controller
         ];
 
         return view('dashboard/main', compact('data'));
+    }
+
+    public function maps ()
+    {
+        return view('maps');
     }
 }

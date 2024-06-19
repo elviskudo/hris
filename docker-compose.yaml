@@ -49,19 +49,6 @@ services:
     networks:
       - laravel
 
-  db:
-    image: postgres:13
-    container_name: laravel-db
-    restart: always
-    environment:
-      POSTGRES_DB: hris
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: secret
-    volumes:
-      - pgdata:/var/lib/postgresql/data
-    networks:
-      - laravel
-
   redis:
     image: redis:alpine
     container_name: laravel-redis
@@ -72,6 +59,3 @@ services:
 networks:
   laravel:
     driver: bridge
-
-volumes:
-  pgdata:
