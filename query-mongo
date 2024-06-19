@@ -1,0 +1,31 @@
+{
+  "_id": ObjectId("5234ccb7687ea597eabee677"),
+  "code": "efg",
+  "tags": ["school", "book"],
+  "qty": [
+    { "size": "S", "num": 10, "color": "blue" },
+    { "size": "M", "num": 100, "color": "blue" },
+    { "size": "L", "num": 100, "color": "green" }
+  ]
+}
+{
+  "_id": ObjectId("52350353b2eff1353b349de9"),
+  "code": "ijk",
+  "tags": ["electronics", "school"],
+  "qty": [
+    { "size": "M", "num": 100, "color": "green" }
+  ]
+}
+
+untuk menampilkan data dengan hanya qty.num maka querynya adalah sebagai berikut:
+
+db.products.find({
+  "qty": {
+    "$elemMatch": {
+      "num": 100
+    }
+  }, 
+  "qty": {
+    "$size": 1
+  }
+})
